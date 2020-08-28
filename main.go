@@ -43,7 +43,7 @@ func main() {
 
 	printPriceOrError("Cart #3", price, err) // $12.25
 
-	// Order #4 - cheesecake sale
+	// Order #4 - October 1st cheesecake sale, Friday cookie sale
 	price, err = cart.CalculateCartPrice(octoberFirstSaleDate,
 		map[shop.Item]int{
 			shop.Cookie:            8,
