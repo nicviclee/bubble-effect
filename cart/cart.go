@@ -22,7 +22,11 @@ func CalculateCartPrice(date time.Time, itemsWithAmounts map[shop.Item]int) (flo
 	sales := sale.GetSalesForDate(date)
 
 	for item, amount := range itemsWithAmounts {
-		treatDetails := shop.Treats[item]
+		treatDetails, ok := shop[item]
+		if !ok {
+			// Possible if Item enum and product data get out of sync
+			return total, fmt.Errorf("shop no longer contains treat requested")
+		}
 
 		remainingUnits := amount
 

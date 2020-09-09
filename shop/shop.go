@@ -13,7 +13,7 @@ type Item int
 
 // Item types available in the store
 const (
-	Brownie Item = iota
+	Brownie Item = iota + 1
 	KeyLimeCheesecake
 	Cookie
 	MiniGingerbreadDonut
@@ -47,7 +47,8 @@ type BulkPricing struct {
 const productsFilename = "products-data.json"
 
 // Get retrieves shop data or returns an error
-func Get() (*Shop, error) {
+// func Get() (*Shop, error) {
+func Get() (map[Item]Treat, error) {
 	_, currentPath, _, ok := runtime.Caller(0)
 	if !ok {
 		return nil, fmt.Errorf("error getting current path")
@@ -65,5 +66,10 @@ func Get() (*Shop, error) {
 		return nil, fmt.Errorf("json unmarshal error: %v", err)
 	}
 
-	return &shopInventory, nil
+	treatsByID := make(map[Item]Treat)
+	for _, treat := range shopInventory.Treats {
+		treatsByID[Item(treat.ID)] = treat
+	}
+
+	return treatsByID, nil
 }
