@@ -47,7 +47,6 @@ type BulkPricing struct {
 const productsFilename = "products-data.json"
 
 // Get retrieves shop data or returns an error
-// func Get() (*Shop, error) {
 func Get() (map[Item]Treat, error) {
 	_, currentPath, _, ok := runtime.Caller(0)
 	if !ok {
